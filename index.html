@@ -1,602 +1,888 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>মুভি ও অ্যাপ হাব প্রো</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-page: #0b0f19;
-            --card-bg: #161f30;
-            --red-brand: #e50914;
-            --blue-brand: #0284c7;
-            --green-btn: #10b981;
-            --text-main: #ffffff;
-            --text-sub: #94a3b8;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Hind Siliguri', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-page);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 480px;
-            background: #0f172a;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
-        }
-
-        /* হেডার */
-        header {
-            background: linear-gradient(135deg, #1e1b4b, #0f172a);
-            padding: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 40;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(45deg, var(--red-brand), var(--blue-brand));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .brand-text h1 {
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .brand-text p {
-            font-size: 11px;
-            color: var(--text-sub);
-        }
-
-        .btn-add {
-            background: var(--green-btn);
-            color: white;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 3px 12px rgba(16, 185, 129, 0.4);
-        }
-
-        /* সার্চ */
-        .search-area {
-            padding: 14px 16px 8px 16px;
-        }
-
-        .search-box {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .search-box input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #ffffff !important;
-            width: 100%;
-            font-size: 14px;
-        }
-
-        .search-box input::placeholder {
-            color: #64748b;
-        }
-
-        /* ফিল্টার বাটন */
-        .tabs {
-            display: flex;
-            gap: 8px;
-            padding: 8px 16px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-        .tabs::-webkit-scrollbar { display: none; }
-
-        .tab-btn {
-            background: #1e293b;
-            color: var(--text-sub);
-            border: 1px solid rgba(255,255,255,0.06);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12.5px;
-            font-weight: 600;
-            white-space: nowrap;
-            cursor: pointer;
-        }
-
-        .tab-btn.active {
-            background: var(--red-brand);
-            color: #ffffff;
-            border-color: var(--red-brand);
-        }
-
-        /* কার্ড গ্রিড */
-        .grid {
-            padding: 12px 16px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            flex-grow: 1;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .card-img {
-            width: 100%;
-            height: 120px;
-            position: relative;
-            background: #273549;
-        }
-
-        .card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .tag-cat {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            background: var(--blue-brand);
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: 700;
-        }
-
-        .card-details {
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            justify-content: space-between;
-        }
-
-        .card-title {
-            font-size: 13.5px;
-            font-weight: 700;
-            color: #ffffff;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            margin-bottom: 4px;
-        }
-
-        .card-meta {
-            font-size: 11px;
-            color: var(--text-sub);
-            margin-bottom: 8px;
-        }
-
-        .btn-dl {
-            background: linear-gradient(135deg, var(--blue-brand), #0369a1);
-            color: white;
-            border: none;
-            padding: 7px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        /* আপলোড ও ডাউনলোড পপআপ */
-        .modal {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            padding: 16px;
-        }
-
-        .modal-box {
-            background: #1e293b;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 380px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* পরিষ্কার দেখা যাওয়ার জন্য ইনপুট স্টাইল */
-        .input-group {
-            text-align: left;
-            margin-bottom: 12px;
-        }
-
-        .input-group label {
-            font-size: 12px;
-            color: #cbd5e1;
-            display: block;
-            margin-bottom: 4px;
-            font-weight: 600;
-        }
-
-        .input-group input, .input-group select {
-            width: 100%;
-            background: #0f172a !important;
-            border: 1px solid #475569 !important;
-            padding: 10px 12px;
-            border-radius: 8px;
-            color: #ffffff !important;
-            outline: none;
-            font-size: 14px;
-        }
-
-        .input-group input:focus {
-            border-color: var(--blue-brand) !important;
-        }
-
-        .btn-submit {
-            background: var(--green-btn);
-            color: white;
-            border: none;
-            padding: 11px;
-            border-radius: 10px;
-            width: 100%;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            margin-top: 6px;
-            margin-bottom: 8px;
-        }
-
-        .btn-cancel {
-            background: transparent;
-            color: var(--text-sub);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 8px;
-            border-radius: 8px;
-            width: 100%;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .btn-direct-link {
-            background: var(--red-brand);
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 11px;
-            border-radius: 10px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        /* ফুটার */
-        footer {
-            background: #080c14;
-            padding: 14px;
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-sub);
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        footer b {
-            color: #38bdf8;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080b14">
+<meta name="description" content="RafimFlix — বাংলা মুভি, নাটক ও অ্যাপের তথ্য, ফেভারিট এবং অফিসিয়াল লিংক।">
+<title>RafimFlix V2 — Premium Entertainment</title>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#080b14;--panel:#101626;--panel2:#151e31;
+  --line:#26324a;--text:#f5f7ff;--muted:#9caac4;
+  --blue:#22c5ff;--red:#ff3c63;--green:#4de2ad;
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif}
+body,button,input,select,textarea{font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif}
+button,input,select,textarea{font-size:14px}
+button,a{-webkit-tap-highlight-color:transparent}
+button{cursor:pointer}
+a{color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,
+select:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.wrap{width:min(1240px,100% - 36px);margin:auto}
+header{position:sticky;top:0;z-index:10;background:#080b14ed;
+  backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:21px;font-weight:950;letter-spacing:-.6px}
+.brand-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;
+  background:linear-gradient(140deg,var(--red),#852dff);box-shadow:0 0 25px #ff315433}
+.brand-name span{color:var(--blue)}
+.actions{display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:11px 14px;border-radius:12px;border:1px solid var(--line);
+  color:var(--text);background:var(--panel2);font-weight:750;text-decoration:none;
+  transition:transform .18s,border-color .18s;min-height:42px}
+.btn:hover{border-color:var(--blue);transform:translateY(-1px)}
+.btn.primary{border:0;background:linear-gradient(110deg,#087fc2,#2457ee)}
+.btn.danger{border-color:#633044;color:#ff9aac;background:#321521}
+.btn.small{padding:8px 11px;min-height:36px;font-size:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.hero{position:relative;overflow:hidden;margin:25px 0 18px;border:1px solid #29395b;
+  border-radius:25px;padding:clamp(24px,5vw,52px);
+  background:radial-gradient(ellipse at 88% 20%,#174c83 0,transparent 36%),
+  radial-gradient(ellipse at 10% 110%,#55162e 0,transparent 42%),
+  linear-gradient(130deg,#131d36,#090d19 75%)}
+.hero:after{content:"▶";position:absolute;right:7%;top:50%;transform:translateY(-50%) rotate(-8deg);
+  font-size:clamp(100px,20vw,210px);font-weight:1000;color:#78d9ff0c;
+  text-shadow:0 0 60px #208fff30;pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:700px}
+.eyebrow{color:var(--blue);font-size:11px;letter-spacing:2px;font-weight:900}
+h1{font-size:clamp(33px,5.5vw,59px);line-height:1.15;letter-spacing:-1.6px;margin:14px 0}
+.gradient{background:linear-gradient(100deg,#31d4ff,#7584ff);color:transparent;background-clip:text}
+.hero p{color:#bdc9e1;line-height:1.85;max-width:570px;font-size:14px}
+.hero-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:23px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 30px}
+.stat{border:1px solid var(--line);background:var(--panel);border-radius:15px;padding:15px}
+.stat strong{display:block;font-size:24px}
+.stat span{font-size:12px;color:var(--muted)}
+.section-title{font-size:22px;font-weight:900;margin:0}
+.sub{font-size:12px;color:var(--muted);margin-top:5px}
+.toolbar{display:grid;gap:15px;margin:28px 0 20px}
+.search-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}
+.search{position:relative}
+.search input{width:100%;height:48px;background:var(--panel);color:white;
+  border:1px solid var(--line);border-radius:13px;padding:0 44px;
+  outline:none;font-size:14px}
+.search input::placeholder{color:#8998b4}
+.search input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #22c5ff14}
+.search-icon{position:absolute;left:15px;top:12px;font-size:20px;color:var(--muted)}
+.clear-search{position:absolute;right:9px;top:8px;width:31px;height:31px;
+  border:0;border-radius:8px;background:transparent;color:white}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--panel);color:#b9c5dc;
+  border-radius:999px;padding:10px 15px;font-weight:800}
+.tab.active{background:var(--blue);border-color:var(--blue);color:#04111b}
+.tools-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+select{background:var(--panel);color:white;border:1px solid var(--line);
+  border-radius:10px;padding:10px;max-width:100%}
+.result-count{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+.card{min-width:0;border:1px solid var(--line);background:var(--panel);
+  border-radius:17px;overflow:hidden;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:#247eb1}
+.poster{height:220px;position:relative;display:grid;place-items:center;overflow:hidden;
+  background:linear-gradient(145deg,#183a62,#3a1838)}
+.poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.poster:after{content:"";position:absolute;inset:40% 0 0;
+  background:linear-gradient(transparent,#090c16c9);pointer-events:none}
+.poster-emoji{font-size:70px;filter:drop-shadow(0 5px 20px #0007)}
+.badge{position:absolute;z-index:2;top:10px;left:10px;padding:6px 9px;
+  border-radius:8px;font-size:10px;font-weight:900;background:#080b14e8;
+  border:1px solid #ffffff22}
+.fav{position:absolute;right:10px;top:10px;z-index:3;width:36px;height:36px;
+  display:grid;place-items:center;border-radius:50%;border:1px solid #ffffff30;
+  background:#080b14d9;color:white;font-size:19px}
+.fav.on{color:#ff6686}
+.poster-name{position:absolute;z-index:2;bottom:12px;left:12px;right:12px;
+  font-weight:950;font-size:19px;line-height:1.4;text-shadow:0 2px 6px #000}
+.card-body{padding:13px}
+.card-title{font-size:15px;font-weight:900;line-height:1.5;margin:0 0 7px;overflow-wrap:anywhere}
+.meta{font-size:11px;color:var(--muted);min-height:18px;overflow-wrap:anywhere}
+.card-desc{font-size:12px;line-height:1.65;color:#bdc7dc;margin:9px 0 0;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:39px}
+.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:13px}
+.card-actions .btn{min-width:0;padding:9px 4px;font-size:11px}
+.delete-btn{width:100%;margin-top:9px;background:transparent;color:#ff9aac;
+  border:0;padding:5px;font-size:11px}
+.empty{display:none;text-align:center;padding:45px 15px;margin:15px 0;
+  border:1px dashed var(--line);border-radius:17px;color:var(--muted)}
+.empty .symbol{font-size:45px}
+.empty h3{color:white}
+.empty p{font-size:13px}
+footer{margin-top:55px;border-top:1px solid var(--line);padding:30px 15px;
+  text-align:center;color:var(--muted);font-size:12px;line-height:2}
+.credit{font-weight:900;color:var(--blue)}
+footer strong{color:white}
+.modal{display:none;position:fixed;inset:0;z-index:30;background:#02040bdc;
+  backdrop-filter:blur(8px);padding:15px;overflow:auto;
+  align-items:center;justify-content:center}
+.modal.show{display:flex}
+.dialog{width:100%;max-width:570px;max-height:calc(100dvh - 30px);overflow:auto;
+  background:#101626;border:1px solid #30415f;border-radius:20px;padding:22px;
+  box-shadow:0 25px 100px #000b}
+.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.dialog-head h2{font-size:20px;margin:0}
+.close{width:38px;height:38px;flex-shrink:0;border:0;border-radius:10px;
+  background:#202b41;color:white;font-size:22px}
+.field{margin-bottom:14px}
+.field label{display:block;margin-bottom:7px;font-size:12px;font-weight:800;color:#dce6fa}
+.field input,.field textarea,.field select{width:100%;background:#080e1c;color:#fff;
+  border:1px solid #35425d;border-radius:10px;padding:12px;outline:none}
+.field input::placeholder,.field textarea::placeholder{color:#8c9ab4}
+.field textarea{resize:vertical;min-height:75px}
+.field small{display:block;font-size:11px;line-height:1.7;color:var(--muted);margin-top:6px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.notice{font-size:12px;line-height:1.8;padding:12px;border:1px solid #2a4264;
+  background:#111e33;border-radius:11px;color:#b9cce8;margin-bottom:16px}
+.preview-image{width:100%;height:190px;object-fit:cover;border-radius:12px;
+  background:linear-gradient(130deg,#173e65,#501d43)}
+.preview-details{margin:15px 0}
+.preview-details h2{margin:7px 0;font-size:25px;overflow-wrap:anywhere}
+.preview-details p{color:var(--muted);font-size:13px;line-height:1.8;overflow-wrap:anywhere}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}
+.info-cell{background:#080e1b;border:1px solid var(--line);padding:12px;border-radius:10px;min-width:0}
+.info-cell small{display:block;color:var(--muted);margin-bottom:6px}
+.info-cell strong{overflow-wrap:anywhere;font-size:13px}
+.dialog-actions{display:flex;gap:9px;flex-wrap:wrap}
+.dialog-actions .btn{flex:1}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:50;
+  display:none;max-width:90%;padding:13px 18px;border:1px solid #3c5276;
+  background:#17243c;color:white;border-radius:12px;font-size:13px;text-align:center;
+  box-shadow:0 10px 35px #0008}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.poster{height:210px}}
+@media(max-width:700px){
+  .wrap{width:calc(100% - 26px)}
+  .nav{min-height:64px}.brand{font-size:18px}.brand-icon{width:37px;height:37px}
+  .nav .btn{font-size:12px;padding:9px 10px}
+  .hero{margin-top:16px;padding:26px 20px;min-height:280px}
+  .hero:after{right:-10px;top:67%;font-size:135px}
+  h1{font-size:clamp(32px,8vw,46px)}
+  .stats{gap:8px}.stat{padding:12px}.stat strong{font-size:20px}.stat span{font-size:10px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  .poster{height:180px}.poster-emoji{font-size:58px}
+  .poster-name{font-size:16px}.card-body{padding:10px}
+  .card-title{font-size:13px}.card-desc{font-size:11px}
+  .card-actions{gap:5px}.card-actions .btn{font-size:10px}
+  .search-row{grid-template-columns:1fr}
+  .tools-row{align-items:flex-start}
+}
+@media(max-width:390px){
+  .brand{font-size:16px}.nav .btn{padding:8px 7px;font-size:11px}
+  .poster{height:155px}.poster-emoji{font-size:50px}
+  .poster-name{font-size:14px}.cols{grid-template-columns:1fr}
+  .dialog{padding:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;transition:none!important}
+}
+</style>
 </head>
 <body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#" aria-label="RafimFlix হোম">
+      <span class="brand-icon">▶</span>
+      <span class="brand-name">RAFIM<span>FLIX</span></span>
+    </a>
+    <div class="actions">
+      <button class="btn" id="favoritesOnly" aria-pressed="false">♡ <span class="fav-label">ফেভারিট</span></button>
+      <button class="btn primary" id="addOpen">＋ যোগ করুন</button>
+    </div>
+  </div>
+</header>
 
-<div class="container">
-    <!-- হেডার -->
-    <header>
-        <div class="brand">
-            <div class="brand-icon"><i class="fa-solid fa-play"></i></div>
-            <div class="brand-text">
-                <h1>মিডিয়া হাব</h1>
-                <p>মুভি, নাটক ও প্রিমিয়াম APK</p>
-            </div>
-        </div>
-        <button class="btn-add" onclick="openAddModal()">
-            <i class="fa-solid fa-circle-plus"></i> মুভি যোগ করুন
-        </button>
-    </header>
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">✦ THE ENTERTAINMENT DESTINATION</div>
+      <h1>বিনোদনের নতুন<br><span class="gradient">এক্সপেরিয়েন্স!</span></h1>
+      <p>জনপ্রিয় মুভি, বাংলা নাটক এবং দরকারি অ্যাপ—সবকিছু এক আধুনিক লাইব্রেরিতে। খুঁজুন, ফেভারিট করুন, অফিসিয়াল উৎস দেখুন।</p>
+      <div class="hero-buttons">
+        <button class="btn primary" id="explore">▶ এক্সপ্লোর করুন</button>
+        <button class="btn" id="heroAdd">＋ নতুন পোস্ট</button>
+      </div>
+    </div>
+  </section>
 
-    <!-- সার্চ বার -->
-    <div class="search-area">
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass" style="color:var(--text-sub);"></i>
-            <input type="text" id="searchInput" placeholder="মুভি বা অ্যাপের নাম লিখুন..." oninput="filterItems()">
+  <section class="stats" aria-label="লাইব্রেরি পরিসংখ্যান">
+    <div class="stat"><strong id="totalCount">0</strong><span>মোট কনটেন্ট</span></div>
+    <div class="stat"><strong id="favoriteCount">0</strong><span>ফেভারিট</span></div>
+    <div class="stat"><strong id="customCount">0</strong><span>আপনার পোস্ট</span></div>
+  </section>
+
+  <section id="library">
+    <h2 class="section-title">🔥 ট্রেন্ডিং লাইব্রেরি</h2>
+    <div class="sub">আপনার পছন্দের কনটেন্ট খুঁজে নিন</div>
+
+    <div class="toolbar">
+      <div class="search-row">
+        <div class="search">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="search" type="search" placeholder="মুভি, নাটক বা অ্যাপ সার্চ করুন..." autocomplete="off" aria-label="লাইব্রেরি সার্চ">
+          <button class="clear-search" id="clearSearch" aria-label="সার্চ মুছুন" hidden>×</button>
         </div>
+        <select id="sort" aria-label="কনটেন্ট সাজান">
+          <option value="newest">নতুন আগে</option>
+          <option value="az">নাম A–Z</option>
+          <option value="za">নাম Z–A</option>
+          <option value="category">ক্যাটাগরি অনুযায়ী</option>
+        </select>
+      </div>
+      <div class="tabs" id="tabs" aria-label="ক্যাটাগরি">
+        <button class="tab active" data-cat="All" aria-pressed="true">সব</button>
+        <button class="tab" data-cat="Movies" aria-pressed="false">🎬 মুভি</button>
+        <button class="tab" data-cat="Natok" aria-pressed="false">📺 নাটক</button>
+        <button class="tab" data-cat="Apps" aria-pressed="false">📱 অ্যাপস</button>
+      </div>
+      <div class="tools-row">
+        <span class="result-count" id="resultCount" aria-live="polite">কনটেন্ট লোড হচ্ছে...</span>
+        <button class="btn small" id="resetFilters">↺ ফিল্টার রিসেট</button>
+      </div>
     </div>
 
-    <!-- ক্যাটাগরি -->
-    <div class="tabs">
-        <button class="tab-btn active" onclick="setCategory('all', this)">সব কিছু</button>
-        <button class="tab-btn" onclick="setCategory('movies', this)">🎬 মুভি</button>
-        <button class="tab-btn" onclick="setCategory('natok', this)">🎭 নাটক</button>
-        <button class="tab-btn" onclick="setCategory('apps', this)">📱 অ্যাপস</button>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty">
+      <div class="symbol">🔎</div>
+      <h3>কিছু পাওয়া যায়নি</h3>
+      <p>অন্য শব্দ লিখুন অথবা ফিল্টার পরিবর্তন করুন।</p>
+      <button class="btn primary" id="emptyAdd">＋ নতুন পোস্ট</button>
     </div>
+  </section>
+</main>
 
-    <!-- কার্ড লিস্ট -->
-    <div class="grid" id="contentGrid"></div>
+<footer>
+  <div><strong>RAFIMFLIX</strong> · Movies, Natok & Apps</div>
+  <div>কনটেন্টের অধিকার ও উৎস যাচাই করে ব্যবহার করুন।</div>
+  <div class="credit">ডিজাইন ও নির্মাণে: এমডি রাফিম হোসেন (MD RAFIM HOSSEN)</div>
+  <div>© <span id="year"></span> RafimFlix</div>
+</footer>
 
-    <!-- মুভি/কনটেন্ট আপলোড পপআপ -->
-    <div class="modal" id="addModal">
-        <div class="modal-box">
-            <h3 style="font-size: 17px; margin-bottom: 14px; color: var(--green-btn); text-align: center;">
-                <i class="fa-solid fa-cloud-arrow-up"></i> নতুন কনটেন্ট যুক্ত করুন
-            </h3>
-
-            <div class="input-group">
-                <label>ক্যাটাগরি:</label>
-                <select id="inCat">
-                    <option value="movies">মুভি (Movie)</option>
-                    <option value="natok">নাটক (Natok)</option>
-                    <option value="apps">অ্যাপস (Apps)</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>নাম / টাইটেল:</label>
-                <input type="text" id="inTitle" placeholder="যেমন: Pushpa 2 / তুফান">
-            </div>
-
-            <div class="input-group">
-                <label>সাইজ ও কোয়ালিটি:</label>
-                <input type="text" id="inSize" placeholder="যেমন: 1.5 GB • 1080p Web-DL">
-            </div>
-
-            <div class="input-group">
-                <label>পোস্টার / ছবির লিংক:</label>
-                <input type="text" id="inImg" placeholder="ছবির ডিরেক্ট URL দিন (না দিলে ডিফল্ট বসবে)">
-            </div>
-
-            <div class="input-group">
-                <label>ডাউনলোড লিংক (Drive / Telegram):</label>
-                <input type="text" id="inLink" placeholder="https://t.me/...">
-            </div>
-
-            <button class="btn-submit" onclick="saveContent()">
-                <i class="fa-solid fa-check"></i> ওয়েবসাইটে পোস্ট করুন
-            </button>
-            <button class="btn-cancel" onclick="closeAddModal()">বাতিল করুন</button>
+<!-- Add/Edit dialog -->
+<div class="modal" id="editModal" role="dialog" aria-modal="true" aria-labelledby="formHeading">
+  <div class="dialog">
+    <div class="dialog-head">
+      <h2 id="formHeading">＋ নতুন কনটেন্ট</h2>
+      <button class="close" data-close="editModal" aria-label="বন্ধ করুন">×</button>
+    </div>
+    <div class="notice">
+      পোস্ট এই ব্রাউজারের localStorage-এ সেভ হবে। এটি সার্ভারে আপলোড হয় না এবং অন্য ব্যবহারকারীরা স্বয়ংক্রিয়ভাবে দেখতে পাবেন না।
+    </div>
+    <form id="contentForm">
+      <div class="field">
+        <label for="category">ক্যাটাগরি *</label>
+        <select id="category" required>
+          <option value="Movies">🎬 Movies — মুভি</option>
+          <option value="Natok">📺 Natok — নাটক</option>
+          <option value="Apps">📱 Apps — অ্যাপস</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="title">নাম / টাইটেল *</label>
+        <input id="title" required maxlength="100" placeholder="যেমন: আমার পছন্দের মুভি">
+      </div>
+      <div class="cols">
+        <div class="field">
+          <label for="size">সাইজ</label>
+          <input id="size" maxlength="50" placeholder="যেমন: 1.2 GB">
         </div>
-    </div>
-
-    <!-- ডাউনলোড লিংক পপআপ -->
-    <div class="modal" id="dlModal">
-        <div class="modal-box" style="text-align: center;">
-            <img id="dlImg" src="" style="width: 80px; height: 80px; border-radius: 12px; object-fit: cover; margin-bottom: 10px;">
-            <h3 id="dlTitle" style="font-size: 16px; margin-bottom: 4px;"></h3>
-            <p id="dlDetails" style="font-size: 12px; color: var(--text-sub); margin-bottom: 14px;"></p>
-            <a id="dlAction" href="#" target="_blank" class="btn-direct-link">
-                <i class="fa-solid fa-download"></i> সরাসরি ডাউনলোড করুন
-            </a>
-            <button class="btn-cancel" onclick="closeDlModal()">বন্ধ করুন</button>
+        <div class="field">
+          <label for="quality">কোয়ালিটি / ভার্সন</label>
+          <input id="quality" maxlength="60" placeholder="যেমন: HD / Android">
         </div>
-    </div>
-
-    <!-- ফুটার -->
-    <footer>
-        <div>ডিজাইন ও নির্মাণে: <b>এমডি রাফিম হোসেন</b></div>
-        <div style="font-size: 11px; margin-top: 3px;">© 2026 প্রিমিয়াম মিডিয়া হাব</div>
-    </footer>
+      </div>
+      <div class="field">
+        <label for="poster">পোস্টার URL</label>
+        <input id="poster" type="url" maxlength="1500" placeholder="https://example.com/poster.jpg">
+        <small>সরাসরি ইমেজ URL দিন। ভুল বা অনুপলভ্য ইমেজ হলে স্বয়ংক্রিয়ভাবে ইমোজি দেখানো হবে।</small>
+      </div>
+      <div class="field">
+        <label for="link">অফিসিয়াল / অনুমোদিত লিংক *</label>
+        <input id="link" type="url" maxlength="2000" required placeholder="https://example.com">
+        <small>শুধু HTTP/HTTPS লিংক। নিজের বা অনুমোদিত ফাইলের লিংক ব্যবহার করুন।</small>
+      </div>
+      <div class="field">
+        <label for="description">বিবরণ</label>
+        <textarea id="description" maxlength="500" placeholder="কনটেন্ট সম্পর্কে লিখুন..."></textarea>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="btn" data-close="editModal">বাতিল</button>
+        <button type="submit" class="btn primary" id="saveButton">✓ সেভ করুন</button>
+      </div>
+    </form>
+  </div>
 </div>
 
+<!-- Preview dialog -->
+<div class="modal" id="previewModal" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
+  <div class="dialog">
+    <div class="dialog-head">
+      <h2>📥 কনটেন্ট প্রিভিউ</h2>
+      <button class="close" data-close="previewModal" aria-label="বন্ধ করুন">×</button>
+    </div>
+    <img id="previewImage" class="preview-image" alt="" hidden>
+    <div class="preview-details">
+      <div class="eyebrow" id="previewCategory">CONTENT</div>
+      <h2 id="previewTitle"></h2>
+      <p id="previewDescription"></p>
+    </div>
+    <div class="info-grid">
+      <div class="info-cell"><small>📦 সাইজ</small><strong id="previewSize"></strong></div>
+      <div class="info-cell"><small>✨ কোয়ালিটি / ভার্সন</small><strong id="previewQuality"></strong></div>
+    </div>
+    <div class="notice">এটি বাহ্যিক লিংক। অন্য সাইটে যাওয়ার আগে URL ও ফাইলের নিরাপত্তা যাচাই করুন। এই সাইট নিজে ফাইল হোস্ট করে না।</div>
+    <div class="dialog-actions">
+      <button class="btn" id="previewFavorite">♡ ফেভারিট</button>
+      <a class="btn primary" id="visitLink" href="https://example.com/" target="_blank" rel="noopener noreferrer">↗ অফিসিয়াল উৎস খুলুন</a>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
-    const INITIAL_DATA = [
-        {
-            id: 1,
-            title: "Tufan (তুফান) Full Movie",
-            category: "movies",
-            catLabel: "মুভি",
-            size: "2.1 GB • 1080p",
-            img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80",
-            downloadUrl: "https://t.me/"
-        },
-        {
-            id: 2,
-            title: "Pushpa 2: The Rule",
-            category: "movies",
-            catLabel: "মুভি",
-            size: "2.4 GB • 1080p",
-            img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&q=80",
-            downloadUrl: "https://t.me/"
-        },
-        {
-            id: 3,
-            title: "ব্যাচেলর পয়েন্ট সিজন ৫",
-            category: "natok",
-            catLabel: "নাটক",
-            size: "450 MB • HD",
-            img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=500&q=80",
-            downloadUrl: "https://t.me/"
-        },
-        {
-            id: 4,
-            title: "CapCut Pro Mod APK",
-            category: "apps",
-            catLabel: "অ্যাপ",
-            size: "135 MB • No Watermark",
-            img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
-            downloadUrl: "https://t.me/"
-        }
-    ];
+"use strict";
 
-    let contentList = JSON.parse(localStorage.getItem('media_hub_items')) || INITIAL_DATA;
-    let currentCategory = 'all';
+/* RafimFlix V2: dependency-free, single-file edition */
+const DB = {
+  items: "rafimflix_v2_items",
+  favorites: "rafimflix_v2_favorites"
+};
 
-    function renderCards(data) {
-        const grid = document.getElementById('contentGrid');
-        grid.innerHTML = '';
+const CATEGORY = {
+  Movies: "মুভি",
+  Natok: "নাটক",
+  Apps: "অ্যাপস"
+};
 
-        if(data.length === 0) {
-            grid.innerHTML = `<div style="grid-column: span 2; text-align: center; color: var(--text-sub); padding: 40px 0;">কোনো কনটেন্ট পাওয়া যায়নি!</div>`;
-            return;
-        }
+const defaults = [
+  {
+    id:"demo-toofan",category:"Movies",title:"তুফান",
+    size:"উৎসভেদে ভিন্ন",quality:"বাংলা সিনেমা",emoji:"🌪️",
+    colors:["#5c1e46","#e33150"],
+    description:"তুফান বাংলা সিনেমার অফিসিয়াল বা অনুমোদিত দেখার উৎস খুঁজুন।",
+    link:"https://www.youtube.com/results?search_query=Toofan+Bangla+movie+official"
+  },
+  {
+    id:"demo-pushpa2",category:"Movies",title:"পুষ্পা ২",
+    size:"উৎসভেদে ভিন্ন",quality:"তেলুগু / ডাবড",emoji:"🔥",
+    colors:["#54291b","#bb6336"],
+    description:"Pushpa 2: The Rule — উপলভ্য অফিসিয়াল দেখার উৎস খুঁজুন।",
+    link:"https://www.youtube.com/results?search_query=Pushpa+2+The+Rule+official"
+  },
+  {
+    id:"demo-priyotoma",category:"Movies",title:"প্রিয়তমা",
+    size:"উৎসভেদে ভিন্ন",quality:"বাংলা সিনেমা",emoji:"❤️",
+    colors:["#50182f","#b62d56"],
+    description:"প্রিয়তমা সিনেমার অনুমোদিত দেখার উৎস খুঁজুন।",
+    link:"https://www.youtube.com/results?search_query=Priyotoma+Bangla+movie+official"
+  },
+  {
+    id:"demo-bachelor",category:"Natok",title:"ব্যাচেলর পয়েন্ট",
+    size:"এপিসোডভেদে ভিন্ন",quality:"বাংলা ধারাবাহিক",emoji:"📺",
+    colors:["#172b56","#2678ad"],
+    description:"ব্যাচেলর পয়েন্টের অফিসিয়াল চ্যানেল ও এপিসোড খুঁজুন।",
+    link:"https://www.youtube.com/results?search_query=Bachelor+Point+official+episode"
+  },
+  {
+    id:"demo-capcut",category:"Apps",title:"CapCut",
+    size:"ডিভাইসভেদে ভিন্ন",quality:"Official app",emoji:"✂️",
+    colors:["#14212c","#435c7a"],
+    description:"ভিডিও এডিটিং অ্যাপ। অফিসিয়াল ওয়েবসাইটে সমর্থিত ডাউনলোড অপশন দেখুন।",
+    link:"https://www.capcut.com/"
+  },
+  {
+    id:"demo-lightroom",category:"Apps",title:"Adobe Lightroom",
+    size:"ডিভাইসভেদে ভিন্ন",quality:"Official app",emoji:"📸",
+    colors:["#142a58","#175bc1"],
+    description:"ফটো এডিটিং অ্যাপ। Adobe-এর অফিসিয়াল পেজে অ্যাপের তথ্য দেখুন।",
+    link:"https://www.adobe.com/products/photoshop-lightroom.html"
+  },
+  {
+    id:"demo-vlc",category:"Apps",title:"VLC Media Player",
+    size:"ডিভাইসভেদে ভিন্ন",quality:"Free media player",emoji:"▶️",
+    colors:["#54301b","#c77724"],
+    description:"বিভিন্ন মিডিয়া ফরম্যাট চালানোর ফ্রি মিডিয়া প্লেয়ার।",
+    link:"https://www.videolan.org/vlc/"
+  },
+  {
+    id:"demo-firefox",category:"Apps",title:"Firefox Browser",
+    size:"ডিভাইসভেদে ভিন্ন",quality:"Official app",emoji:"🦊",
+    colors:["#54204d","#e56a31"],
+    description:"ওয়েব ব্রাউজার। অফিসিয়াল ডাউনলোড পেজ দেখুন।",
+    link:"https://www.mozilla.org/firefox/"
+  }
+];
 
-        data.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <div class="card-img">
-                    <img src="${item.img}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80'">
-                    <span class="tag-cat">${item.catLabel}</span>
-                </div>
-                <div class="card-details">
-                    <div>
-                        <div class="card-title">${item.title}</div>
-                        <div class="card-meta"><i class="fa-solid fa-file"></i> ${item.size}</div>
-                    </div>
-                    <button class="btn-dl" onclick="openDlModal(${item.id})">
-                        <i class="fa-solid fa-download"></i> ডাউনলোড
-                    </button>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-    }
+let userItems = loadItems();
+let favorites = loadFavorites();
+let categoryFilter = "All";
+let query = "";
+let favoritesOnly = false;
+let editId = null;
+let previewId = null;
+let toastTimer = null;
+let previousFocus = null;
 
-    function setCategory(cat, elem) {
-        currentCategory = cat;
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        elem.classList.add('active');
-        filterItems();
-    }
+function readArray(key) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(value) ? value : [];
+  } catch {
+    return [];
+  }
+}
 
-    function filterItems() {
-        const query = document.getElementById('searchInput').value.toLowerCase().trim();
-        const filtered = contentList.filter(item => {
-            const matchCat = (currentCategory === 'all') || (item.category === currentCategory);
-            const matchSearch = item.title.toLowerCase().includes(query);
-            return matchCat && matchSearch;
-        });
-        renderCards(filtered);
-    }
+function safeURL(value) {
+  if (typeof value !== "string" || value.length > 2000) return false;
+  try {
+    const u = new URL(value);
+    return u.protocol === "https:" || u.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
 
-    function openAddModal() {
-        document.getElementById('addModal').style.display = 'flex';
-    }
+function loadItems() {
+  return readArray(DB.items).filter(x =>
+    x && typeof x.id === "string" &&
+    typeof x.title === "string" && x.title.trim().length > 0 &&
+    ["Movies","Natok","Apps"].includes(x.category) &&
+    safeURL(x.link)
+  ).map(x => ({
+    id:x.id,
+    category:x.category,
+    title:x.title.slice(0,100),
+    size:typeof x.size === "string" ? x.size.slice(0,50) : "",
+    quality:typeof x.quality === "string" ? x.quality.slice(0,60) : "",
+    poster:safeURL(x.poster) ? x.poster : "",
+    link:x.link,
+    description:typeof x.description === "string" ? x.description.slice(0,500) : "",
+    emoji:typeof x.emoji === "string" ? x.emoji : "🎬",
+    userAdded:true,
+    createdAt:Number(x.createdAt) || 0
+  }));
+}
 
-    function closeAddModal() {
-        document.getElementById('addModal').style.display = 'none';
-    }
+function loadFavorites() {
+  return readArray(DB.favorites).filter(x => typeof x === "string");
+}
 
-    function saveContent() {
-        const cat = document.getElementById('inCat').value;
-        const title = document.getElementById('inTitle').value.trim();
-        const size = document.getElementById('inSize').value.trim();
-        const img = document.getElementById('inImg').value.trim();
-        const link = document.getElementById('inLink').value.trim();
+function saveItems() {
+  try {
+    localStorage.setItem(DB.items, JSON.stringify(userItems));
+    return true;
+  } catch {
+    notify("স্টোরেজে জায়গা নেই। কিছু পোস্ট বা বড় ইমেজ URL সরান।");
+    return false;
+  }
+}
 
-        if(!title || !size || !link) {
-            alert('দয়া করে নাম, সাইজ এবং ডাউনলোড লিংক পূরণ করুন!');
-            return;
-        }
+function saveFavorites() {
+  try {
+    localStorage.setItem(DB.favorites, JSON.stringify(favorites));
+    return true;
+  } catch {
+    notify("ফেভারিট সংরক্ষণ করা যায়নি।");
+    return false;
+  }
+}
 
-        let catText = "মুভি";
-        if(cat === "natok") catText = "নাটক";
-        if(cat === "apps") catText = "অ্যাপ";
+function allItems() {
+  return [...userItems, ...defaults];
+}
 
-        const newItem = {
-            id: Date.now(),
-            title: title,
-            category: cat,
-            catLabel: catText,
-            size: size,
-            img: img || "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80",
-            downloadUrl: link
-        };
+function byId(id) {
+  return allItems().find(x => x.id === id) || null;
+}
 
-        contentList.unshift(newItem);
-        localStorage.setItem('media_hub_items', JSON.stringify(contentList));
+function node(tag, cls, text) {
+  const el = document.createElement(tag);
+  if (cls) el.className = cls;
+  if (text !== undefined) el.textContent = text;
+  return el;
+}
 
-        // ফর্ম ক্লিয়ার
-        document.getElementById('inTitle').value = '';
-        document.getElementById('inSize').value = '';
-        document.getElementById('inImg').value = '';
-        document.getElementById('inLink').value = '';
+function notify(message) {
+  const el = document.getElementById("toast");
+  el.textContent = message;
+  el.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.style.display = "none"; }, 2800);
+}
 
-        closeAddModal();
-        filterItems();
-        alert('আপনার কনটেন্টটি সফলভাবে যোগ করা হয়েছে!');
-    }
+function categoryEmoji(cat) {
+  return cat === "Movies" ? "🎬" : cat === "Natok" ? "📺" : "📱";
+}
 
-    function openDlModal(id) {
-        const item = contentList.find(i => i.id === id);
-        if(!item) return;
+function getVisibleItems() {
+  let items = allItems().filter(item => {
+    const catOK = categoryFilter === "All" || item.category === categoryFilter;
+    const favOK = !favoritesOnly || favorites.includes(item.id);
+    const haystack = [
+      item.title, item.description, item.quality,
+      item.size, CATEGORY[item.category]
+    ].join(" ").toLocaleLowerCase();
+    return catOK && favOK && haystack.includes(query.toLocaleLowerCase());
+  });
 
-        document.getElementById('dlImg').src = item.img;
-        document.getElementById('dlTitle').innerText = item.title;
-        document.getElementById('dlDetails').innerText = item.size;
-        document.getElementById('dlAction').href = item.downloadUrl;
-        document.getElementById('dlModal').style.display = 'flex';
-    }
+  const sort = document.getElementById("sort").value;
+  if (sort === "az") items.sort((a,b) => a.title.localeCompare(b.title,"bn"));
+  if (sort === "za") items.sort((a,b) => b.title.localeCompare(a.title,"bn"));
+  if (sort === "category") items.sort((a,b) =>
+    a.category.localeCompare(b.category) || a.title.localeCompare(b.title,"bn"));
+  if (sort === "newest") items.sort((a,b) =>
+    (b.createdAt || 0) - (a.createdAt || 0));
+  return items;
+}
 
-    function closeDlModal() {
-        document.getElementById('dlModal').style.display = 'none';
-    }
+function makeCard(item) {
+  const card = node("article","card");
+  const poster = node("div","poster");
+  const colors = Array.isArray(item.colors) ? item.colors : ["#183a62","#3a1838"];
+  poster.style.background = `linear-gradient(145deg,${colors[0]},${colors[1]})`;
 
-    // ইনিশিয়াল লোড
-    renderCards(contentList);
+  const fallback = node("span","poster-emoji",item.emoji || categoryEmoji(item.category));
+  fallback.setAttribute("aria-hidden","true");
+  poster.appendChild(fallback);
+
+  if (item.poster && safeURL(item.poster)) {
+    const img = node("img");
+    img.src = item.poster;
+    img.alt = item.title + " পোস্টার";
+    img.loading = "lazy";
+    img.referrerPolicy = "no-referrer";
+    img.onerror = () => { img.remove(); };
+    poster.appendChild(img);
+  }
+
+  const badge = node("span","badge",CATEGORY[item.category] || "কনটেন্ট");
+  poster.appendChild(badge);
+
+  const fav = node("button","fav" + (favorites.includes(item.id) ? " on" : ""),
+    favorites.includes(item.id) ? "♥" : "♡");
+  fav.type = "button";
+  fav.setAttribute("aria-label",item.title + " ফেভারিট");
+  fav.setAttribute("aria-pressed",String(favorites.includes(item.id)));
+  fav.addEventListener("click",() => toggleFavorite(item.id));
+  poster.appendChild(fav);
+
+  poster.appendChild(node("div","poster-name",item.title));
+  card.appendChild(poster);
+
+  const body = node("div","card-body");
+  body.appendChild(node("h3","card-title",item.title));
+  body.appendChild(node("div","meta",
+    [item.quality,item.size].filter(Boolean).join(" · ") || "বিস্তারিত দেখুন"));
+  body.appendChild(node("p","card-desc",item.description || "বিস্তারিত তথ্য দেওয়া হয়নি।"));
+
+  const actions = node("div","card-actions");
+  const preview = node("button","btn primary","⌕ প্রিভিউ");
+  preview.type = "button";
+  preview.addEventListener("click",() => openPreview(item.id));
+  actions.appendChild(preview);
+
+  const external = node("a","btn","↗ উৎস");
+  external.href = item.link;
+  external.target = "_blank";
+  external.rel = "noopener noreferrer";
+  external.setAttribute("aria-label",item.title + " এর উৎস খুলুন");
+  actions.appendChild(external);
+  body.appendChild(actions);
+
+  if (item.userAdded) {
+    const row = node("div","card-actions");
+    const edit = node("button","btn small","✎ এডিট");
+    edit.type = "button";
+    edit.addEventListener("click",() => openEditor(item.id));
+    row.appendChild(edit);
+    const del = node("button","btn small danger","মুছুন");
+    del.type = "button";
+    del.addEventListener("click",() => deleteItem(item.id));
+    row.appendChild(del);
+    body.appendChild(row);
+  }
+
+  card.appendChild(body);
+  return card;
+}
+
+function render() {
+  const grid = document.getElementById("grid");
+  const items = getVisibleItems();
+  const frag = document.createDocumentFragment();
+  items.forEach(item => frag.appendChild(makeCard(item)));
+  grid.replaceChildren(frag);
+
+  document.getElementById("totalCount").textContent = allItems().length;
+  document.getElementById("favoriteCount").textContent = favorites.filter(id => byId(id)).length;
+  document.getElementById("customCount").textContent = userItems.length;
+  document.getElementById("resultCount").textContent = `${items.length}টি কনটেন্ট`;
+  document.getElementById("empty").style.display = items.length ? "none" : "block";
+
+  const favBtn = document.getElementById("favoritesOnly");
+  favBtn.setAttribute("aria-pressed",String(favoritesOnly));
+  favBtn.innerHTML = favoritesOnly
+    ? '♥ <span class="fav-label">সব দেখুন</span>'
+    : '♡ <span class="fav-label">ফেভারিট</span>';
+}
+
+function setCategory(cat) {
+  categoryFilter = cat;
+  document.querySelectorAll("[data-cat]").forEach(btn => {
+    const active = btn.dataset.cat === cat;
+    btn.classList.toggle("active",active);
+    btn.setAttribute("aria-pressed",String(active));
+  });
+  render();
+}
+
+function toggleFavorite(id) {
+  const old = [...favorites];
+  favorites = favorites.includes(id)
+    ? favorites.filter(x => x !== id)
+    : [...favorites,id];
+
+  if (!saveFavorites()) {
+    favorites = old;
+    return;
+  }
+  render();
+  if (previewId === id) updatePreviewFavorite();
+}
+
+function updatePreviewFavorite() {
+  const btn = document.getElementById("previewFavorite");
+  const on = favorites.includes(previewId);
+  btn.textContent = on ? "♥ ফেভারিটে আছে" : "♡ ফেভারিট";
+  btn.setAttribute("aria-pressed",String(on));
+}
+
+function openModal(id) {
+  const modal = document.getElementById(id);
+  previousFocus = document.activeElement;
+  modal.classList.add("show");
+  document.body.style.overflow = "hidden";
+  const focusTarget = modal.querySelector("input,select,button,a");
+  if (focusTarget) setTimeout(() => focusTarget.focus(),0);
+}
+
+function closeModal(id) {
+  const modal = document.getElementById(id);
+  modal.classList.remove("show");
+  if (!document.querySelector(".modal.show")) {
+    document.body.style.overflow = "";
+    if (previousFocus && typeof previousFocus.focus === "function") previousFocus.focus();
+  }
+}
+
+function openEditor(id = null) {
+  editId = id;
+  const item = id ? byId(id) : null;
+  if (id && (!item || !item.userAdded)) {
+    notify("এই নমুনা পোস্ট সরাসরি এডিট করা যায় না।");
+    return;
+  }
+
+  document.getElementById("contentForm").reset();
+  document.getElementById("formHeading").textContent =
+    item ? "✎ পোস্ট এডিট করুন" : "＋ নতুন কনটেন্ট";
+  document.getElementById("saveButton").textContent =
+    item ? "✓ পরিবর্তন সেভ করুন" : "✓ সেভ করুন";
+
+  if (item) {
+    document.getElementById("category").value = item.category;
+    document.getElementById("title").value = item.title;
+    document.getElementById("size").value = item.size;
+    document.getElementById("quality").value = item.quality;
+    document.getElementById("poster").value = item.poster;
+    document.getElementById("link").value = item.link;
+    document.getElementById("description").value = item.description;
+  }
+  openModal("editModal");
+}
+
+function openPreview(id) {
+  const item = byId(id);
+  if (!item) return;
+  previewId = id;
+
+  document.getElementById("previewTitle").textContent = item.title;
+  document.getElementById("previewCategory").textContent = CATEGORY[item.category];
+  document.getElementById("previewDescription").textContent =
+    item.description || "বিস্তারিত তথ্য দেওয়া হয়নি।";
+  document.getElementById("previewSize").textContent = item.size || "উল্লেখ নেই";
+  document.getElementById("previewQuality").textContent = item.quality || "উল্লেখ নেই";
+
+  const img = document.getElementById("previewImage");
+  img.hidden = true;
+  img.removeAttribute("src");
+  if (item.poster && safeURL(item.poster)) {
+    img.onerror = () => { img.hidden = true; };
+    img.onload = () => { img.hidden = false; };
+    img.src = item.poster;
+    img.alt = item.title + " পোস্টার";
+  }
+
+  const link = document.getElementById("visitLink");
+  link.href = safeURL(item.link) ? item.link : "https://example.com/";
+  link.textContent = item.category === "Apps"
+    ? "↗ অফিসিয়াল অ্যাপ পেজ খুলুন"
+    : "↗ উৎস খুলুন";
+
+  updatePreviewFavorite();
+  openModal("previewModal");
+}
+
+function deleteItem(id) {
+  const item = userItems.find(x => x.id === id);
+  if (!item) return;
+  if (!confirm(`"${item.title}" পোস্টটি মুছে ফেলবেন?`)) return;
+
+  const oldItems = userItems;
+  const oldFavorites = favorites;
+  userItems = userItems.filter(x => x.id !== id);
+  favorites = favorites.filter(x => x !== id);
+
+  try {
+    localStorage.setItem(DB.items,JSON.stringify(userItems));
+    localStorage.setItem(DB.favorites,JSON.stringify(favorites));
+  } catch {
+    userItems = oldItems;
+    favorites = oldFavorites;
+    notify("পোস্ট মুছে ফেলা সংরক্ষণ করা যায়নি।");
+    return;
+  }
+
+  render();
+  notify("পোস্ট মুছে ফেলা হয়েছে।");
+}
+
+document.getElementById("addOpen").addEventListener("click",() => openEditor());
+document.getElementById("heroAdd").addEventListener("click",() => openEditor());
+document.getElementById("emptyAdd").addEventListener("click",() => openEditor());
+
+document.getElementById("explore").addEventListener("click",() => {
+  document.getElementById("library").scrollIntoView({behavior:"smooth"});
+  setTimeout(() => document.getElementById("search").focus({preventScroll:true}),200);
+});
+
+document.getElementById("tabs").addEventListener("click",event => {
+  const btn = event.target.closest("[data-cat]");
+  if (btn) setCategory(btn.dataset.cat);
+});
+
+document.getElementById("search").addEventListener("input",event => {
+  query = event.target.value.trim();
+  document.getElementById("clearSearch").hidden = !event.target.value;
+  render();
+});
+
+document.getElementById("clearSearch").addEventListener("click",() => {
+  document.getElementById("search").value = "";
+  query = "";
+  document.getElementById("clearSearch").hidden = true;
+  render();
+  document.getElementById("search").focus();
+});
+
+document.getElementById("sort").addEventListener("change",render);
+
+document.getElementById("resetFilters").addEventListener("click",() => {
+  query = "";
+  favoritesOnly = false;
+  categoryFilter = "All";
+  document.getElementById("search").value = "";
+  document.getElementById("clearSearch").hidden = true;
+  document.getElementById("sort").value = "newest";
+  setCategory("All");
+  render();
+});
+
+document.getElementById("favoritesOnly").addEventListener("click",() => {
+  favoritesOnly = !favoritesOnly;
+  render();
+});
+
+document.getElementById("previewFavorite").addEventListener("click",() => {
+  if (previewId) toggleFavorite(previewId);
+});
+
+document.querySelectorAll("[data-close]").forEach(btn => {
+  btn.addEventListener("click",() => closeModal(btn.dataset.close));
+});
+
+document.querySelectorAll(".modal").forEach(modal => {
+  modal.addEventListener("click",event => {
+    if (event.target === modal) closeModal(modal.id);
+  });
+});
+
+document.addEventListener("keydown",event => {
+  if (event.key === "Escape") {
+    const open = document.querySelector(".modal.show");
+    if (open) closeModal(open.id);
+  }
+});
+
+document.getElementById("contentForm").addEventListener("submit",event => {
+  event.preventDefault();
+  const title = document.getElementById("title").value.trim();
+  const category = document.getElementById("category").value;
+  const size = document.getElementById("size").value.trim();
+  const quality = document.getElementById("quality").value.trim();
+  const poster = document.getElementById("poster").value.trim();
+  const link = document.getElementById("link").value.trim();
+  const description = document.getElementById("description").value.trim();
+
+  if (!title) return notify("টাইটেল লিখুন।");
+  if (!["Movies","Natok","Apps"].includes(category))
+    return notify("একটি সঠিক ক্যাটাগরি নির্বাচন করুন।");
+  if (!safeURL(link)) return notify("একটি বৈধ HTTP/HTTPS লিংক দিন।");
+  if (poster && !safeURL(poster)) return notify("পোস্টার URL সঠিক নয়।");
+
+  const existing = editId ? userItems.find(x => x.id === editId) : null;
+  if (editId && !existing) return notify("এডিট করার পোস্টটি পাওয়া যায়নি।");
+
+  const item = {
+    id: existing ? existing.id : "user-" + Date.now() + "-" +
+      Math.random().toString(36).slice(2,9),
+    category,title,size,quality,poster,link,description,
+    emoji:categoryEmoji(category),
+    userAdded:true,
+    createdAt:existing ? existing.createdAt : Date.now()
+  };
+
+  const oldItems = userItems;
+  userItems = existing
+    ? userItems.map(x => x.id === editId ? item : x)
+    : [item,...userItems];
+
+  if (!saveItems()) {
+    userItems = oldItems;
+    return;
+  }
+
+  closeModal("editModal");
+  editId = null;
+  document.getElementById("contentForm").reset();
+  query = "";
+  favoritesOnly = false;
+  document.getElementById("search").value = "";
+  document.getElementById("clearSearch").hidden = true;
+  setCategory("All");
+  notify(existing ? "✓ পরিবর্তন সেভ হয়েছে!" : "✓ নতুন পোস্ট যোগ হয়েছে!");
+  document.getElementById("library").scrollIntoView({behavior:"smooth"});
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+render();
 </script>
-
 </body>
 </html>
