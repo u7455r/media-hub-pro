@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>প্রিমিয়াম মিডিয়া ও মুভি হাব | Movies, Natok & Premium APK</title>
-    <!-- Font Awesome & Google Fonts -->
+    <title>মুভি ও অ্যাপ হাব প্রো</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #0b0e14;
-            --card-dark: #161b26;
-            --red-main: #e50914;
-            --blue-main: #0070f3;
-            --text-light: #f1f5f9;
-            --text-gray: #94a3b8;
-            --accent-green: #10b981;
+            --bg-page: #0b0f19;
+            --card-bg: #161f30;
+            --red-brand: #e50914;
+            --blue-brand: #0284c7;
+            --green-btn: #10b981;
+            --text-main: #ffffff;
+            --text-sub: #94a3b8;
         }
 
         * {
@@ -28,141 +27,137 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: var(--bg-page);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             min-height: 100vh;
         }
 
-        .main-wrapper {
+        .container {
             width: 100%;
-            max-width: 500px;
-            background: #0f141f;
+            max-width: 480px;
+            background: #0f172a;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             position: relative;
-            box-shadow: 0 0 35px rgba(0,0,0,0.8);
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
 
-        /* Top Header */
+        /* হেডার */
         header {
-            background: linear-gradient(135deg, #1e1b4b, #0f141f);
+            background: linear-gradient(135deg, #1e1b4b, #0f172a);
             padding: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
             position: sticky;
             top: 0;
-            z-index: 50;
+            z-index: 40;
         }
 
-        .brand-box {
+        .brand {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .brand-icon {
-            width: 38px;
-            height: 38px;
-            background: linear-gradient(45deg, var(--red-main), var(--blue-main));
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--red-brand), var(--blue-brand));
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+            font-size: 20px;
         }
 
-        .brand-title h1 {
-            font-size: 17px;
+        .brand-text h1 {
+            font-size: 18px;
             font-weight: 700;
         }
 
-        .brand-title p {
+        .brand-text p {
             font-size: 11px;
-            color: var(--text-gray);
+            color: var(--text-sub);
         }
 
-        .header-btns {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn-upload-top {
-            background: var(--accent-green);
+        .btn-add {
+            background: var(--green-btn);
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 8px 14px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 5px;
-            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+            gap: 6px;
+            box-shadow: 0 3px 12px rgba(16, 185, 129, 0.4);
         }
 
-        /* Search Section */
+        /* সার্চ */
         .search-area {
             padding: 14px 16px 8px 16px;
         }
 
         .search-box {
-            background: #1c2230;
+            background: #1e293b;
             border-radius: 12px;
             padding: 10px 14px;
             display: flex;
             align-items: center;
             gap: 10px;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .search-box input {
             background: transparent;
             border: none;
             outline: none;
-            color: #fff;
+            color: #ffffff !important;
             width: 100%;
             font-size: 14px;
         }
 
-        /* Categories Filter */
-        .category-tabs {
+        .search-box input::placeholder {
+            color: #64748b;
+        }
+
+        /* ফিল্টার বাটন */
+        .tabs {
             display: flex;
             gap: 8px;
             padding: 8px 16px;
             overflow-x: auto;
             scrollbar-width: none;
         }
-        .category-tabs::-webkit-scrollbar { display: none; }
+        .tabs::-webkit-scrollbar { display: none; }
 
         .tab-btn {
-            background: #161b26;
-            color: var(--text-gray);
+            background: #1e293b;
+            color: var(--text-sub);
             border: 1px solid rgba(255,255,255,0.06);
             padding: 6px 14px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 12.5px;
             font-weight: 600;
             white-space: nowrap;
             cursor: pointer;
-            transition: 0.2s;
         }
 
         .tab-btn.active {
-            background: var(--red-main);
-            color: #fff;
-            border-color: var(--red-main);
-            box-shadow: 0 3px 10px rgba(229, 9, 20, 0.4);
+            background: var(--red-brand);
+            color: #ffffff;
+            border-color: var(--red-brand);
         }
 
-        /* Content Grid */
-        .content-grid {
+        /* কার্ড গ্রিড */
+        .grid {
             padding: 12px 16px;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -170,58 +165,41 @@
             flex-grow: 1;
         }
 
-        .item-card {
-            background: var(--card-dark);
+        .card {
+            background: var(--card-bg);
             border-radius: 12px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.2s;
+            border: 1px solid rgba(255,255,255,0.06);
         }
 
-        .item-card:active {
-            transform: scale(0.98);
-        }
-
-        .thumbnail-box {
+        .card-img {
             width: 100%;
-            height: 125px;
+            height: 120px;
             position: relative;
-            background: #232936;
+            background: #273549;
         }
 
-        .thumbnail-box img {
+        .card-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .quality-tag {
+        .tag-cat {
             position: absolute;
             top: 6px;
-            left: 6px;
-            background: rgba(0,0,0,0.75);
-            color: #fde047;
+            right: 6px;
+            background: var(--blue-brand);
+            color: white;
             padding: 2px 6px;
             border-radius: 4px;
             font-size: 10px;
             font-weight: 700;
         }
 
-        .cat-tag {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            background: var(--blue-main);
-            color: #fff;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 9.5px;
-            font-weight: 700;
-        }
-
-        .item-info {
+        .card-details {
             padding: 10px;
             display: flex;
             flex-direction: column;
@@ -229,10 +207,10 @@
             justify-content: space-between;
         }
 
-        .item-title {
-            font-size: 13px;
+        .card-title {
+            font-size: 13.5px;
             font-weight: 700;
-            color: #fff;
+            color: #ffffff;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -240,19 +218,17 @@
             margin-bottom: 4px;
         }
 
-        .item-meta {
-            display: flex;
-            justify-content: space-between;
+        .card-meta {
             font-size: 11px;
-            color: var(--text-gray);
+            color: var(--text-sub);
             margin-bottom: 8px;
         }
 
-        .btn-download-card {
-            background: linear-gradient(135deg, var(--blue-main), #0051b3);
+        .btn-dl {
+            background: linear-gradient(135deg, var(--blue-brand), #0369a1);
             color: white;
             border: none;
-            padding: 6px 10px;
+            padding: 7px;
             border-radius: 6px;
             font-size: 12px;
             font-weight: 700;
@@ -263,12 +239,11 @@
             gap: 5px;
         }
 
-        /* Modal Details */
-        .modal-overlay {
+        /* আপলোড ও ডাউনলোড পপআপ */
+        .modal {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(5px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -276,79 +251,89 @@
             padding: 16px;
         }
 
-        .modal-content {
-            background: #1b2130;
+        .modal-box {
+            background: #1e293b;
             border-radius: 16px;
             width: 100%;
             max-width: 380px;
             padding: 20px;
-            text-align: center;
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .modal-content img {
-            width: 90px;
-            height: 90px;
-            border-radius: 14px;
-            object-fit: cover;
+        /* পরিষ্কার দেখা যাওয়ার জন্য ইনপুট স্টাইল */
+        .input-group {
+            text-align: left;
             margin-bottom: 12px;
         }
 
-        .btn-direct-down {
-            background: var(--red-main);
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 700;
+        .input-group label {
+            font-size: 12px;
+            color: #cbd5e1;
             display: block;
-            margin: 14px 0 8px 0;
+            margin-bottom: 4px;
+            font-weight: 600;
         }
 
-        .btn-close-modal {
+        .input-group input, .input-group select {
+            width: 100%;
+            background: #0f172a !important;
+            border: 1px solid #475569 !important;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: #ffffff !important;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .input-group input:focus {
+            border-color: var(--blue-brand) !important;
+        }
+
+        .btn-submit {
+            background: var(--green-btn);
+            color: white;
+            border: none;
+            padding: 11px;
+            border-radius: 10px;
+            width: 100%;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 6px;
+            margin-bottom: 8px;
+        }
+
+        .btn-cancel {
             background: transparent;
-            color: var(--text-gray);
+            color: var(--text-sub);
             border: 1px solid rgba(255,255,255,0.1);
             padding: 8px;
-            border-radius: 10px;
+            border-radius: 8px;
             width: 100%;
             cursor: pointer;
             font-size: 12px;
         }
 
-        /* Upload Modal Form */
-        .upload-input-group {
-            text-align: left;
-            margin-bottom: 10px;
-        }
-
-        .upload-input-group label {
-            font-size: 11.5px;
-            color: var(--text-gray);
-            display: block;
-            margin-bottom: 3px;
-        }
-
-        .upload-input-group input, .upload-input-group select {
-            width: 100%;
-            background: #121722;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 8px 10px;
-            border-radius: 8px;
+        .btn-direct-link {
+            background: var(--red-brand);
             color: white;
-            outline: none;
-            font-size: 13px;
+            text-decoration: none;
+            display: block;
+            padding: 11px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
         }
 
-        /* Footer */
+        /* ফুটার */
         footer {
-            background: #090c12;
+            background: #080c14;
             padding: 14px;
             text-align: center;
             font-size: 12px;
-            color: var(--text-gray);
-            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-sub);
+            border-top: 1px solid rgba(255,255,255,0.06);
         }
 
         footer b {
@@ -358,115 +343,111 @@
 </head>
 <body>
 
-<div class="main-wrapper">
-    <!-- Header -->
+<div class="container">
+    <!-- হেডার -->
     <header>
-        <div class="brand-box">
+        <div class="brand">
             <div class="brand-icon"><i class="fa-solid fa-play"></i></div>
-            <div class="brand-title">
-                <h1>মিডিয়া হাব প্রো</h1>
-                <p>HD Movies, Natok & Mod Apps</p>
+            <div class="brand-text">
+                <h1>মিডিয়া হাব</h1>
+                <p>মুভি, নাটক ও প্রিমিয়াম APK</p>
             </div>
         </div>
-        <div class="header-btns">
-            <button class="btn-upload-top" onclick="openUploadModal()">
-                <i class="fa-solid fa-cloud-arrow-up"></i> আপলোড
-            </button>
-        </div>
+        <button class="btn-add" onclick="openAddModal()">
+            <i class="fa-solid fa-circle-plus"></i> মুভি যোগ করুন
+        </button>
     </header>
 
-    <!-- Search -->
+    <!-- সার্চ বার -->
     <div class="search-area">
         <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass" style="color:var(--text-gray);"></i>
-            <input type="text" id="searchInput" placeholder="মুভি, নাটক বা অ্যাপের নাম লিখুন..." oninput="filterItems()">
+            <i class="fa-solid fa-magnifying-glass" style="color:var(--text-sub);"></i>
+            <input type="text" id="searchInput" placeholder="মুভি বা অ্যাপের নাম লিখুন..." oninput="filterItems()">
         </div>
     </div>
 
-    <!-- Category Tabs -->
-    <div class="category-tabs">
-        <button class="tab-btn active" onclick="setCategory('all', this)">সব কিছু (All)</button>
-        <button class="tab-btn" onclick="setCategory('movies', this)">🎬 হাই-লেভেল মুভি</button>
-        <button class="tab-btn" onclick="setCategory('natok', this)">🎭 জনপ্রিয় নাটক</button>
-        <button class="tab-btn" onclick="setCategory('apps', this)">📱 প্রিমিয়াম অ্যাপস</button>
+    <!-- ক্যাটাগরি -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="setCategory('all', this)">সব কিছু</button>
+        <button class="tab-btn" onclick="setCategory('movies', this)">🎬 মুভি</button>
+        <button class="tab-btn" onclick="setCategory('natok', this)">🎭 নাটক</button>
+        <button class="tab-btn" onclick="setCategory('apps', this)">📱 অ্যাপস</button>
     </div>
 
-    <!-- Content Grid -->
-    <div class="content-grid" id="itemsList"></div>
+    <!-- কার্ড লিস্ট -->
+    <div class="grid" id="contentGrid"></div>
 
-    <!-- Download Details Modal -->
-    <div class="modal-overlay" id="downloadModal">
-        <div class="modal-content">
-            <img id="mImg" src="" alt="Thumbnail">
-            <h3 id="mTitle" style="font-size: 16px; margin-bottom: 4px;"></h3>
-            <p id="mDetails" style="font-size: 12px; color: var(--text-gray);"></p>
-            <a id="mLink" href="#" target="_blank" class="btn-direct-down">
-                <i class="fa-solid fa-download"></i> সরাসরি ডাউনলোড করুন
-            </a>
-            <button class="btn-close-modal" onclick="closeDownloadModal()">বাতিল করুন</button>
-        </div>
-    </div>
-
-    <!-- Upload Movie/App Modal -->
-    <div class="modal-overlay" id="uploadModal">
-        <div class="modal-content" style="max-height: 90vh; overflow-y: auto;">
-            <h3 style="font-size: 17px; margin-bottom: 12px; color: var(--accent-green);">
-                <i class="fa-solid fa-plus-circle"></i> নতুন কনটেন্ট যুক্ত করুন
+    <!-- মুভি/কনটেন্ট আপলোড পপআপ -->
+    <div class="modal" id="addModal">
+        <div class="modal-box">
+            <h3 style="font-size: 17px; margin-bottom: 14px; color: var(--green-btn); text-align: center;">
+                <i class="fa-solid fa-cloud-arrow-up"></i> নতুন কনটেন্ট যুক্ত করুন
             </h3>
-            
-            <div class="upload-input-group">
-                <label>ক্যাটাগরি সিলেক্ট করুন:</label>
-                <select id="upCategory">
-                    <option value="movies">হাই-লেভেল মুভি (Movie)</option>
-                    <option value="natok">বাংলা নাটক (Natok)</option>
-                    <option value="apps">প্রিমিয়াম অ্যাপস (Mod APK)</option>
+
+            <div class="input-group">
+                <label>ক্যাটাগরি:</label>
+                <select id="inCat">
+                    <option value="movies">মুভি (Movie)</option>
+                    <option value="natok">নাটক (Natok)</option>
+                    <option value="apps">অ্যাপস (Apps)</option>
                 </select>
             </div>
 
-            <div class="upload-input-group">
+            <div class="input-group">
                 <label>নাম / টাইটেল:</label>
-                <input type="text" id="upTitle" placeholder="যেমন: Pushpa 2 / CapCut Pro">
+                <input type="text" id="inTitle" placeholder="যেমন: Pushpa 2 / তুফান">
             </div>
 
-            <div class="upload-input-group">
+            <div class="input-group">
                 <label>সাইজ ও কোয়ালিটি:</label>
-                <input type="text" id="upSize" placeholder="যেমন: 1.8 GB (1080p Web-DL)">
+                <input type="text" id="inSize" placeholder="যেমন: 1.5 GB • 1080p Web-DL">
             </div>
 
-            <div class="upload-input-group">
-                <label>পোস্টার / ইমেজ লিংক (URL):</label>
-                <input type="text" id="upImg" placeholder="ছবির ডিরেক্ট লিংক দিন">
+            <div class="input-group">
+                <label>পোস্টার / ছবির লিংক:</label>
+                <input type="text" id="inImg" placeholder="ছবির ডিরেক্ট URL দিন (না দিলে ডিফল্ট বসবে)">
             </div>
 
-            <div class="upload-input-group">
-                <label>ডাউনলোড লিংক (Drive / Mega / Telegram):</label>
-                <input type="text" id="upLink" placeholder="https://t.me/...">
+            <div class="input-group">
+                <label>ডাউনলোড লিংক (Drive / Telegram):</label>
+                <input type="text" id="inLink" placeholder="https://t.me/...">
             </div>
 
-            <button class="btn-direct-down" style="background: var(--accent-green);" onclick="submitNewContent()">
-                <i class="fa-solid fa-check"></i> কনটেন্ট সেভ ও পোস্ট করুন
+            <button class="btn-submit" onclick="saveContent()">
+                <i class="fa-solid fa-check"></i> ওয়েবসাইটে পোস্ট করুন
             </button>
-            <button class="btn-close-modal" onclick="closeUploadModal()">বন্ধ করুন</button>
+            <button class="btn-cancel" onclick="closeAddModal()">বাতিল করুন</button>
         </div>
     </div>
 
-    <!-- Developer Footer -->
+    <!-- ডাউনলোড লিংক পপআপ -->
+    <div class="modal" id="dlModal">
+        <div class="modal-box" style="text-align: center;">
+            <img id="dlImg" src="" style="width: 80px; height: 80px; border-radius: 12px; object-fit: cover; margin-bottom: 10px;">
+            <h3 id="dlTitle" style="font-size: 16px; margin-bottom: 4px;"></h3>
+            <p id="dlDetails" style="font-size: 12px; color: var(--text-sub); margin-bottom: 14px;"></p>
+            <a id="dlAction" href="#" target="_blank" class="btn-direct-link">
+                <i class="fa-solid fa-download"></i> সরাসরি ডাউনলোড করুন
+            </a>
+            <button class="btn-cancel" onclick="closeDlModal()">বন্ধ করুন</button>
+        </div>
+    </div>
+
+    <!-- ফুটার -->
     <footer>
         <div>ডিজাইন ও নির্মাণে: <b>এমডি রাফিম হোসেন</b></div>
-        <div style="font-size: 11px; margin-top: 3px;">© 2026 প্রিমিয়াম মিডিয়া হাব • All Rights Reserved</div>
+        <div style="font-size: 11px; margin-top: 3px;">© 2026 প্রিমিয়াম মিডিয়া হাব</div>
     </footer>
 </div>
 
 <script>
-    // ডিফল্ট হাই-লেভেল মুভি, নাটক এবং প্রিমিয়াম অ্যাপ ডেটা
-    const DEFAULT_ITEMS = [
+    const INITIAL_DATA = [
         {
             id: 1,
             title: "Tufan (তুফান) Full Movie",
             category: "movies",
             catLabel: "মুভি",
-            quality: "4K / 1080p",
-            size: "2.1 GB",
+            size: "2.1 GB • 1080p",
             img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80",
             downloadUrl: "https://t.me/"
         },
@@ -475,114 +456,56 @@
             title: "Pushpa 2: The Rule",
             category: "movies",
             catLabel: "মুভি",
-            quality: "1080p Web-DL",
-            size: "2.4 GB",
+            size: "2.4 GB • 1080p",
             img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&q=80",
             downloadUrl: "https://t.me/"
         },
         {
             id: 3,
-            title: "Priyotoma (প্রিয়তমা)",
-            category: "movies",
-            catLabel: "মুভি",
-            quality: "1080p HD",
-            size: "1.5 GB",
-            img: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=500&q=80",
-            downloadUrl: "https://t.me/"
-        },
-        {
-            id: 4,
-            title: "KGF Chapter 2",
-            category: "movies",
-            catLabel: "মুভি",
-            quality: "1080p Dual Audio",
-            size: "2.6 GB",
+            title: "ব্যাচেলর পয়েন্ট সিজন ৫",
+            category: "natok",
+            catLabel: "নাটক",
+            size: "450 MB • HD",
             img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=500&q=80",
             downloadUrl: "https://t.me/"
         },
         {
-            id: 5,
-            title: "ব্যাচেলর পয়েন্ট সিজন ৫ (সব পর্ব)",
-            category: "natok",
-            catLabel: "নাটক",
-            quality: "Full HD",
-            size: "550 MB",
-            img: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=500&q=80",
-            downloadUrl: "https://t.me/"
-        },
-        {
-            id: 6,
-            title: "ফিমেল ৪ (Female 4) নাটক",
-            category: "natok",
-            catLabel: "নাটক",
-            quality: "1080p HD",
-            size: "420 MB",
-            img: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=500&q=80",
-            downloadUrl: "https://t.me/"
-        },
-        {
-            id: 7,
-            title: "CapCut Pro Mod APK (No Watermark)",
+            id: 4,
+            title: "CapCut Pro Mod APK",
             category: "apps",
             catLabel: "অ্যাপ",
-            quality: "v12.6.0",
-            size: "135 MB",
+            size: "135 MB • No Watermark",
             img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
-            downloadUrl: "https://t.me/"
-        },
-        {
-            id: 8,
-            title: "Lightroom Pro Mod (All Presets)",
-            category: "apps",
-            catLabel: "অ্যাপ",
-            quality: "Premium",
-            size: "95 MB",
-            img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&q=80",
-            downloadUrl: "https://t.me/"
-        },
-        {
-            id: 9,
-            title: "Kinemaster Pro (Without Watermark)",
-            category: "apps",
-            catLabel: "অ্যাপ",
-            quality: "Unlocked",
-            size: "88 MB",
-            img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&q=80",
             downloadUrl: "https://t.me/"
         }
     ];
 
-    // LocalStorage checking jate manush upload korle save thake
-    let allContent = JSON.parse(localStorage.getItem('user_content_data')) || DEFAULT_ITEMS;
-    let selectedCategory = 'all';
+    let contentList = JSON.parse(localStorage.getItem('media_hub_items')) || INITIAL_DATA;
+    let currentCategory = 'all';
 
     function renderCards(data) {
-        const grid = document.getElementById('itemsList');
+        const grid = document.getElementById('contentGrid');
         grid.innerHTML = '';
 
         if(data.length === 0) {
-            grid.innerHTML = `<div style="grid-column: span 2; text-align: center; color: var(--text-gray); padding: 40px 0;">কোনো কনটেন্ট পাওয়া যায়নি!</div>`;
+            grid.innerHTML = `<div style="grid-column: span 2; text-align: center; color: var(--text-sub); padding: 40px 0;">কোনো কনটেন্ট পাওয়া যায়নি!</div>`;
             return;
         }
 
         data.forEach(item => {
             const card = document.createElement('div');
-            card.className = 'item-card';
+            card.className = 'card';
             card.innerHTML = `
-                <div class="thumbnail-box">
-                    <img src="${item.img || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80'}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80'">
-                    <span class="quality-tag">${item.quality || 'HD'}</span>
-                    <span class="cat-tag">${item.catLabel}</span>
+                <div class="card-img">
+                    <img src="${item.img}" alt="${item.title}" onerror="this.src='https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80'">
+                    <span class="tag-cat">${item.catLabel}</span>
                 </div>
-                <div class="item-info">
+                <div class="card-details">
                     <div>
-                        <div class="item-title">${item.title}</div>
-                        <div class="item-meta">
-                            <span><i class="fa-solid fa-file"></i> ${item.size}</span>
-                            <span>★ 4.9</span>
-                        </div>
+                        <div class="card-title">${item.title}</div>
+                        <div class="card-meta"><i class="fa-solid fa-file"></i> ${item.size}</div>
                     </div>
-                    <button class="btn-download-card" onclick="openDownloadModal(${item.id})">
+                    <button class="btn-dl" onclick="openDlModal(${item.id})">
                         <i class="fa-solid fa-download"></i> ডাউনলোড
                     </button>
                 </div>
@@ -592,7 +515,7 @@
     }
 
     function setCategory(cat, elem) {
-        selectedCategory = cat;
+        currentCategory = cat;
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         elem.classList.add('active');
         filterItems();
@@ -600,82 +523,79 @@
 
     function filterItems() {
         const query = document.getElementById('searchInput').value.toLowerCase().trim();
-        const filtered = allContent.filter(item => {
-            const matchCat = (selectedCategory === 'all') || (item.category === selectedCategory);
+        const filtered = contentList.filter(item => {
+            const matchCat = (currentCategory === 'all') || (item.category === currentCategory);
             const matchSearch = item.title.toLowerCase().includes(query);
             return matchCat && matchSearch;
         });
         renderCards(filtered);
     }
 
-    function openDownloadModal(id) {
-        const item = allContent.find(i => i.id === id);
-        if(!item) return;
-
-        document.getElementById('mImg').src = item.img || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
-        document.getElementById('mTitle').innerText = item.title;
-        document.getElementById('mDetails').innerText = `সাইজ: ${item.size} • কোয়ালিটি: ${item.quality || 'HD'}`;
-        document.getElementById('mLink').href = item.downloadUrl;
-        document.getElementById('downloadModal').style.display = 'flex';
+    function openAddModal() {
+        document.getElementById('addModal').style.display = 'flex';
     }
 
-    function closeDownloadModal() {
-        document.getElementById('downloadModal').style.display = 'none';
+    function closeAddModal() {
+        document.getElementById('addModal').style.display = 'none';
     }
 
-    // Upload Modal Handling
-    function openUploadModal() {
-        document.getElementById('uploadModal').style.display = 'flex';
-    }
-
-    function closeUploadModal() {
-        document.getElementById('uploadModal').style.display = 'none';
-    }
-
-    // Manush nijera post/upload korle
-    function submitNewContent() {
-        const cat = document.getElementById('upCategory').value;
-        const title = document.getElementById('upTitle').value.trim();
-        const size = document.getElementById('upSize').value.trim();
-        const img = document.getElementById('upImg').value.trim();
-        const link = document.getElementById('upLink').value.trim();
+    function saveContent() {
+        const cat = document.getElementById('inCat').value;
+        const title = document.getElementById('inTitle').value.trim();
+        const size = document.getElementById('inSize').value.trim();
+        const img = document.getElementById('inImg').value.trim();
+        const link = document.getElementById('inLink').value.trim();
 
         if(!title || !size || !link) {
             alert('দয়া করে নাম, সাইজ এবং ডাউনলোড লিংক পূরণ করুন!');
             return;
         }
 
-        let catName = "মুভি";
-        if(cat === "natok") catName = "নাটক";
-        if(cat === "apps") catName = "অ্যাপ";
+        let catText = "মুভি";
+        if(cat === "natok") catText = "নাটক";
+        if(cat === "apps") catText = "অ্যাপ";
 
         const newItem = {
             id: Date.now(),
             title: title,
             category: cat,
-            catLabel: catName,
-            quality: "HD / Mod",
+            catLabel: catText,
             size: size,
             img: img || "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80",
             downloadUrl: link
         };
 
-        allContent.unshift(newItem);
-        localStorage.setItem('user_content_data', JSON.stringify(allContent));
+        contentList.unshift(newItem);
+        localStorage.setItem('media_hub_items', JSON.stringify(contentList));
 
-        // Form Clear
-        document.getElementById('upTitle').value = '';
-        document.getElementById('upSize').value = '';
-        document.getElementById('upImg').value = '';
-        document.getElementById('upLink').value = '';
+        // ফর্ম ক্লিয়ার
+        document.getElementById('inTitle').value = '';
+        document.getElementById('inSize').value = '';
+        document.getElementById('inImg').value = '';
+        document.getElementById('inLink').value = '';
 
-        closeUploadModal();
+        closeAddModal();
         filterItems();
-        alert('আপনার মুভি/অ্যাপটি সফলভাবে পোস্ট করা হয়েছে!');
+        alert('আপনার কনটেন্টটি সফলভাবে যোগ করা হয়েছে!');
     }
 
-    // App start
-    renderCards(allContent);
+    function openDlModal(id) {
+        const item = contentList.find(i => i.id === id);
+        if(!item) return;
+
+        document.getElementById('dlImg').src = item.img;
+        document.getElementById('dlTitle').innerText = item.title;
+        document.getElementById('dlDetails').innerText = item.size;
+        document.getElementById('dlAction').href = item.downloadUrl;
+        document.getElementById('dlModal').style.display = 'flex';
+    }
+
+    function closeDlModal() {
+        document.getElementById('dlModal').style.display = 'none';
+    }
+
+    // ইনিশিয়াল লোড
+    renderCards(contentList);
 </script>
 
 </body>
